@@ -1,0 +1,19 @@
+# Voice-Bot-for-Medical-Assistant
+This project introduces an AI-powered healthcare voice assistant that uses natural voice interaction to aid with patient triage, symptom assessment, and basic health advice. 
+To give safe, real-time responses and help patients make educated healthcare decisions, the system makes use of sophisticated voice recognition, medical information retrieval, and diagnostic decision models.
+The voice bot uses Whisper to turn patient speech into text, NLP and diagnostic trees to analyze symptoms, and a Retrieval-Augmented Generation (RAG) pipeline based on compressed medical databases to retrieve pertinent medical knowledge. 
+Using ScaleDown approaches, medical literature and patient medical history are optimized to improve reaction latency and reduce storage, allowing for quick (<1 second) responses and handling several symptom combinations at once.
+Symptom assessment, medication reminders, appointment scheduling, emergency detection, and multilingual communication are some of the system's essential healthcare assistance functions. 
+In order to provide authentic, human-like voice responses, it incorporates text-to-speech utilizing ElevenLabs, making it more accessible to patients of various ages and linguistic backgrounds.
+Security and privacy are key components of the design. Secure data handling, encrypted communication, role-based access, and patient consent management are just a few of the HIPAA-compliant procedures that the solution adheres to to guarantee the secure use of medical data.
+
+Technical Highlights
+Highlights of Technology
+Text to Speech: Whisper
+RAG with reduced medical databases is the medical knowledge engine.
+Decision Logic: Diagnostic tree-based symptom checker
+ScaleDown optimization for compressing patient histories and literature
+Voice-to-Text: ElevenLabs
+Backend: Triage and response system powered by AI
+Compliance: A security and privacy framework in line with HIPAA
+Deliverables
