@@ -17,3 +17,13 @@ Voice-to-Text: ElevenLabs
 Backend: Triage and response system powered by AI
 Compliance: A security and privacy framework in line with HIPAA
 Deliverables
+
+Outcomes
+Offers immediate health advice depending on the symptoms of the patient.
+Assists users in determining whether to manage at home or seek medical attention.
+Makes it possible to identify major health issues and emergencies early.
+Enhances drug compliance with prompt reminders
+Shortens wait times for scheduling and scheduling doctor's visits
+Makes essential healthcare support more accessible anywhere, at any time.
+Increases patient awareness and confidence in their ability to manage their health
+Facilitates quicker decision-making in urgent medical situations
