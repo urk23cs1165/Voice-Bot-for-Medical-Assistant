@@ -18,6 +18,9 @@ Backend: Triage and response system powered by AI
 Compliance: A security and privacy framework in line with HIPAA
 Deliverables
 
+Unique-Features
+Even though AI healthcare assistants are already on the market, this project intends to offer a lightweight, real-time voice triage system designed for prompt response, multilingual accessibility, and efficient handling of complex symptom combinations. The system is suitable for large-scale and resource-constrained healthcare settings because of its emphasis on prompt decision support, efficient medical data processing, and improved usability for everyday users.
+
 Outcomes
 Offers immediate health advice depending on the symptoms of the patient.
 Assists users in determining whether to manage at home or seek medical attention.
