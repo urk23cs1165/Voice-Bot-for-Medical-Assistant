@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Medical Assistant</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 450px;
+        }
+
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover { background-color: #0056b3; }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .recording {
+            background-color: #e74c3c !important;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        .result-box {
+            margin-top: 25px;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #007bff;
+        }
+
+        .status { margin-top: 10px; font-weight: bold; color: #7f8c8d; }
+        .symptom-tag {
+            display: inline-block;
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 3px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Medical AI</h1>
+        <p>Click the mic and describe your symptoms.</p>
+        
+        <button id="recordBtn">🎤 Start Listening</button>
+        <div id="status" class="status">Status: Ready</div>
+
+        <div class="result-box">
+            <strong>What I heard:</strong>
+            <p id="transcript" style="font-style: italic; color: #34495e;">...</p>
+            
+            <strong>Detected Symptoms:</strong>
+            <div id="symptomsList" style="margin: 10px 0;"></div>
+            
+            <strong>Assistant's Advice:</strong>
+            <p id="advice" style="color: #27ae60; font-weight: bold;"></p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Logic
+        const recordBtn = document.getElementById('recordBtn');
+        const status = document.getElementById('status');
+        const transcript = document.getElementById('transcript');
+        const symptomsList = document.getElementById('symptomsList');
+        const advice = document.getElementById('advice');
+
+        recordBtn.addEventListener('click', async () => {
+            // Update UI to recording state
+            recordBtn.disabled = true;
+            recordBtn.classList.add('recording');
+            recordBtn.innerText = "Listening...";
+            status.innerText = "Status: Listening for 5 seconds...";
+
+            try {
+                // Send request to Flask
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    status.innerText = "Error: " + data.error;
+                } else {
+                    // Update the page with Python's response
+                    transcript.innerText = `"${data.transcript}"`;
+                    advice.innerText = data.reply;
+                    
+                    // Clear and add symptoms
+                    symptomsList.innerHTML = "";
+                    data.symptoms.forEach(s => {
+                        const span = document.createElement('span');
+                        span.className = 'symptom-tag';
+                        span.innerText = s;
+                        symptomsList.appendChild(span);
+                    });
+
+                    status.innerText = "Status: Analysis Complete";
+                }
+            } catch (err) {
+                console.error(err);
+                status.innerText = "Status: Connection Error";
+            } finally {
+                // Reset Button
+                recordBtn.disabled = false;
+                recordBtn.classList.remove('recording');
+                recordBtn.innerText = "🎤 Start Listening";
+            }
+        });
+    </script>
+</body>
+</html>
